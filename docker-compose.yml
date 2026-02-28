@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:13.3
-    container_name: "milk_logic_db"
+    container_name: "milk-logic_db"
     environment:
       POSTGRES_DB: "milk_logic_db"
       POSTGRES_USER: "ml_root"
@@ -14,7 +14,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: milk_logic_webapi
+    container_name: milk-logic_webapi
     ports:
       - "8080:5034"
     depends_on:
@@ -27,7 +27,7 @@ services:
     build:
       context: ./server/OpcEmulator
       dockerfile: Dockerfile
-    container_name: milk_logic_opc
+    container_name: milk-logic_opc
     ports:
       - "4840:4840"
     depends_on:
