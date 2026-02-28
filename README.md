@@ -1,22 +1,23 @@
 Milk Logic
-
 Структура проекта:
-Milk-Logic
-    server/ 
-    ├── Application 
-    ├── Domain 
-    ├── Infrastructure 
-    ├── WebApi 
-    └── OpcEmulator
-    client/
-    └── SPA
-    .gitignore
-    docker-compose.yml
-    init_db.sql
-    correct.xml
-    README.md
+
+    Milk-Logic
+        server/ 
+        ├── Application 
+        ├── Domain 
+        ├── Infrastructure 
+        ├── WebApi 
+        └── OpcEmulator
+        client/
+        └── SPA
+        .gitignore
+        docker-compose.yml
+        init_db.sql
+        correct.xml
+        README.md
 
 Проекты:
+
     - Domain - доменный слой приложения, содержит определение сущностей и определяет формат репозитория.
     - Application - слой бизнес логики приложения, определяет Dto, комманды, перехватчики и мапперы.
     - Infrastructure  - слой для подключения к внешним системам, таким как базы данных и д.р.
@@ -26,6 +27,7 @@ Milk-Logic
     - SPA - frontend приложение отображающее таблицу с данными с датчиков.
 
 Файлы:
+
     - .gitignore - файл с перечислением элементов для исключения из git индексирования.
     - docker-compose.yml - файл с настройками для развёртки docker - контейнера.
     - init_db.sql - sql скрипт для создания таблицы в БД при использовании docker.
@@ -33,6 +35,7 @@ Milk-Logic
     - README.md - документация.
 
 Локальный запуск:
+
     1.  PostgreSQL (через Docker):
         docker run -d –name milk_logic_db -e POSTGRES_DB=milk_logic_db -e POSTGRES_USER=ml_root -e POSTGRES_PASSWORD=password -p 3232:5432 postgres:13.3
 
@@ -60,9 +63,11 @@ Milk-Logic
             npm run build
         
 Docker запуск:
+    
     docker compose up -–build
 
 Структура docker контейнера:
+   
     milk-logic:
         milk-logic_db - postgres база данных.
         milk-logic_webapi - webapi server app.
@@ -70,6 +75,7 @@ Docker запуск:
         milk-logic_opc - веб-клиент эмулятор opc сервера.
 
 Доступы(после docker запуска): 
+    
     WebApi: 
         http://localhost:8080/swagger 
 
@@ -83,6 +89,7 @@ Docker запуск:
         http://localhost:3000 
 
 Переменные среды:
+    
     WebApi: 
         ASPNETCORE_ENVIRONMENT DefaultConnection ASPNETCORE_URLS
 
@@ -95,23 +102,28 @@ Docker запуск:
         * В Docker использовать: BaseAddress=http://webapi:5034
 
 Важно:  
+   
     * В Docker нельзя использовать localhost для связи между контейнерами. Используются имена сервисов: webapi, postgres. 
     * Формат DateTime — ISO 8601 UTC (пример: 2026-02-28T00:00:00Z)
     * По задаче требовалось развернуть 3 контейнера, но мной было принято решение вывести эмулятор OPC сервера в отдельный контейнер, так как это было бы на настоящем производстве.
     * Проект построен по принципам Clean Architecture.
 
 API:
- - Создание записи данных сенсора:
+
+- Создание записи данных сенсора:
    Тип: POST
    URI: /api/data
    Параметры: sensorId: int, value: float
+  
 - Создание записи данных сенсора с помощью XML:
    Тип: POST
    URI: /api/data/xml
+  
  - Получение данных с определённого сенсора за определённый период:
    Тип: GET
    URI: /api/data
    Параметры: sensorId: int, start: DateTime, end: DateTime
+   
  - Получение агрегированных данных с определённого сенсора за определённый период:
    Тип: GET
    URI: /api/sensors/summury
