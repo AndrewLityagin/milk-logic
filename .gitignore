@@ -1,0 +1,54 @@
+############################
+# Build folders
+############################
+bin/
+obj/
+out/
+publish/
+.dll
+.exe
+.pdb
+
+############################
+# Rider / VS / VS Code
+############################
+.vs/
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+
+
+############################
+# User files
+############################
+.user
+.suo
+.userosscache
+.sln.docstates
+
+############################
+# OS files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# NuGet
+############################
+*.nupkg
+packages/
+.nuget/
+
+############################
+# Docker
+############################
+docker-compose.override.yml
+
+############################
+# Temporary files
+############################
+.tmp
+.temp
+.fake
+.cache
