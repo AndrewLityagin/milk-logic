@@ -29,4 +29,18 @@ public class DataController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new CreateSensorDataCommand(dto));
         return Ok(result);
     }
+
+    [HttpPost("xml")]
+    public async Task<ActionResult> PostXml([FromBody] CreateSensorDataRequest request)
+    {
+       var dto = new SensorDataDto
+        {
+            SensorId = request.SensorId,
+            Timestamp = DateTime.UtcNow,
+            Value = request.Value
+        };
+        
+        var result = await mediator.Send(new CreateSensorDataCommand(dto));
+        return Ok(result);
+    }
 }

@@ -1,0 +1,33 @@
+
+.status-badge{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 120px;
+    height:25px;
+}
+
+.indicator {
+  width: 20px;
+  height:20px;
+  border-radius: 50%;
+  color: white;
+  display: inline-block;
+}
+
+.status-ok {
+  background-color: #16a34a;
+}
+
+.status-warning {
+  background-color: #f59e0b;
+}
+
+.status-error {
+  background-color: #dc2626;
+}
+.status-undefined{
+  background-color: #919191;
+}

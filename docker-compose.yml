@@ -36,5 +36,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - BaseAddress=http://webapi:5034
       - Timeout=5
-    
+  frontend:
+    build:
+      context: ./client/SPA
+    depends_on:
+      - webapi
+    container_name: milk-logic_frontend
+    ports:
+      - "3000:80"  
 

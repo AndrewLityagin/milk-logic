@@ -1,0 +1,31 @@
+.regime-container {
+  display: inline-flex;
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+  width: 200px;
+  height: 40px;
+}
+
+.regime-button {
+  width: 100px;
+  height: 40px;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.regime-button:hover {
+  background: #2a2a2a;
+}
+
+.regime-button.active {
+  background: #3b82f6;
+  color: white;
+}

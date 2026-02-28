@@ -1,0 +1,15 @@
+.cell-flash {
+  animation: fadeFlash 2s ease-out;
+}
+
+@keyframes fadeFlash {
+  0% {
+    background-color: rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    background-color: rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
