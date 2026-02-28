@@ -12,6 +12,17 @@ internal class GetSummuryQueryHandler(ISensorDataRepository sensorRepository) : 
                      .Where(sd => sd.Timestamp >= request.Start && sd.Timestamp <= request.End);
 
         var entities = await sensorRepository.GetListAsync(query);
+
+        if(entities.Count() == 0)
+            return  new SummuryDto
+            {
+                SensorId = request.SensorId,
+                Start = request.Start,
+                End = request.End,
+                Max = 0,
+                Min = 0,
+                Avg = 0
+            };
         
         return new SummuryDto
         {

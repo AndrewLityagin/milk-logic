@@ -12,6 +12,9 @@ internal class GetSensorDataListQueryHandler(ISensorDataRepository sensorReposit
                      .Where(sd => sd.Timestamp >= request.Start && sd.Timestamp <= request.End);
         
         var entities = await sensorRepository.GetListAsync(query);
+
+        if(entities.Count() == 0)
+            return new List<SensorDataDto>();
         
         return entities.Select(e => e.ToDto()).ToList();
     }
