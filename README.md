@@ -110,23 +110,23 @@ Docker запуск:
 
 API:
 
-- Создание записи данных сенсора:
-   Тип: POST
-   URI: /api/data
-   Параметры: sensorId: int, value: float
-  
-- Создание записи данных сенсора с помощью XML:
-   Тип: POST
-   URI: /api/data/xml
-  
- - Получение данных с определённого сенсора за определённый период:
-   Тип: GET
-   URI: /api/data
-   Параметры: sensorId: int, start: DateTime, end: DateTime
-   
- - Получение агрегированных данных с определённого сенсора за определённый период:
-   Тип: GET
-   URI: /api/sensors/summury
-   Параметры: sensorId: int, start: DateTime, end: DateTime
+    - Создание записи данных сенсора:
+       Тип: POST
+       URI: /api/data
+       Параметры: sensorId: int, value: float
+       
+    - Создание записи данных сенсора с помощью XML:
+       Тип: POST
+       URI: /api/data/xml
+    
+     - Получение данных с определённого сенсора за определённый период:
+       Тип: GET
+       URI: /api/data
+       Параметры: sensorId: int, start: DateTime, end: DateTime
+       
+     - Получение агрегированных данных с определённого сенсора за определённый период:
+       Тип: GET
+       URI: /api/sensors/summury
+       Параметры: sensorId: int, start: DateTime, end: DateTime
 
     
