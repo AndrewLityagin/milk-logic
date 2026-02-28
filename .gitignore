@@ -1,31 +1,33 @@
 ############################
-# Build folders
+# Build folders (.NET)
 ############################
-bin/
-obj/
-out/
-publish/
-.dll
-.exe
-.pdb
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+*.dll
+*.exe
+*.pdb
 
 ############################
-# Rider / VS / VS Code
+# Rider / Visual Studio / VS Code
 ############################
 .vs/
+.idea/
+
 .vscode/*
 !.vscode/launch.json
 !.vscode/tasks.json
-.idea/
-
+!.vscode/extensions.json
 
 ############################
 # User files
 ############################
-.user
-.suo
-.userosscache
-.sln.docstates
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
 ############################
 # OS files
@@ -39,16 +41,23 @@ Thumbs.db
 *.nupkg
 packages/
 .nuget/
+*.snupkg
 
 ############################
 # Docker
 ############################
 docker-compose.override.yml
+.env
+
+############################
+# Logs
+############################
+*.log
 
 ############################
 # Temporary files
 ############################
-.tmp
-.temp
-.fake
-.cache
+*.tmp
+*.temp
+*.cache
+*.fake
