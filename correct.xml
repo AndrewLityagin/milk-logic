@@ -1,0 +1,4 @@
+<CreateSensorDataRequest>
+  <SensorId>2</SensorId>
+  <Value>23.5</Value>
+</CreateSensorDataRequest>

@@ -13,12 +13,21 @@ Milk-Logic
     .gitignore
     docker-compose.yml
     init_db.sql
+    correct.xml
     README.md
 
+Проекты:
     - WebApi — HTTP API. Backend-система сбора данных датчиков. Проект построен по принципам Clean Architecture.
     - OpcEmulator — эмулятор датчиков. Простой HttpClient 
     - PostgreSQL — база данных
     - SPA - frontend приложение отображающее таблицу с данными с датчиков.
+
+Файлы:
+    - .gitignore - файл с перечислением элементов для исключения из git индексирования.
+    - docker-compose.yml - файл с настройками для развёртки docker - контейнера.
+    - init_db.sql - sql скрипт для создания таблицы в БД при использовании docker.
+    - correct.xml - пример xml файла корректного формата для загрузки на webApi.
+    - README.md - документация.
 
 Локальный запуск:
     1.  PostgreSQL (через Docker):
@@ -85,3 +94,23 @@ Docker запуск:
 Важно:  
     * В Docker нельзя использовать localhost для связи между контейнерами. Используются имена сервисов: webapi, postgres. 
     * Формат DateTime — ISO 8601 UTC (пример: 2026-02-28T00:00:00Z)
+    * По задаче требовалось развернуть 3 контейнера, но мной было принято решение вывести эмулятор OPC сервера в отдельный контейнер, так как это было бы на настоящем производстве.
+
+API:
+ - Создание записи данных сенсора:
+   Тип: POST
+   URI: /api/data
+   Параметры: sensorId: int, value: float
+- Создание записи данных сенсора с помощью XML:
+   Тип: POST
+   URI: /api/data/xml
+ - Получение данных с определённого сенсора за определённый период:
+   Тип: GET
+   URI: /api/data
+   Параметры: sensorId: int, start: DateTime, end: DateTime
+ - Получение агрегированных данных с определённого сенсора за определённый период:
+   Тип: GET
+   URI: /api/sensors/summury
+   Параметры: sensorId: int, start: DateTime, end: DateTime
+
+    
