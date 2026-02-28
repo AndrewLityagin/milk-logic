@@ -1,11 +1,40 @@
 services:
   postgres:
     image: postgres:13.3
+    container_name: "milk_logic_db"
     environment:
-      POSTGRES_DB: "milk_logic"
+      POSTGRES_DB: "milk_logic_db"
       POSTGRES_USER: "ml_root"
       POSTGRES_PASSWORD: "password"
     volumes:
       - .:/docker-entrypoint-initdb.d
     ports:
-      - "3232:3232"
+      - "3232:5432"
+  webapi:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: milk_logic_webapi
+    ports:
+      - "8080:5034"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DefaultConnection=Host=postgres;Port=5432;Database=milk_logic_db;Username=ml_root;Password=password
+
+  opcemulator:
+    build:
+      context: ./server/OpcEmulator
+      dockerfile: Dockerfile
+    container_name: milk_logic_opc
+    ports:
+      - "4840:4840"
+    depends_on:
+      - webapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - BaseAddress=http://webapi:5034
+      - Timeout=5
+    
+

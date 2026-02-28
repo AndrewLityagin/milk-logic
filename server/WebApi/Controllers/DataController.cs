@@ -1,22 +1,33 @@
 
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Application;
 
 namespace WebApi;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DataController : ControllerBase
+public class DataController(IMediator mediator) : ControllerBase
 {  
     [HttpGet]
-    public  IActionResult Get()
+    public async Task<ActionResult> Get(DateTime start, DateTime end)
     {
-        return Ok("Get work");
+        var result = await mediator.Send(new GetSensorDataListQuery(start.ToUniversalTime(),end.ToUniversalTime()));
+        return Ok(result);
     }
 
     [HttpPost]
-    public IActionResult Post()
+    public async Task<ActionResult> Post([FromBody] CreateSensorDataRequest request)
     {
-        return Ok("Post work");
+       var dto = new SensorDataDto
+        {
+            SensorId = request.SensorId,
+            Timestamp = DateTime.UtcNow,
+            Value = request.Value
+        };
+        
+        var result = await mediator.Send(new CreateSensorDataCommand(dto));
+        return Ok(result);
     }
 
 }

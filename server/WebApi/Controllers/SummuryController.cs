@@ -1,16 +1,19 @@
 
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Application;
 
 namespace WebApi;
 
 [ApiController]
 [Route("api/sensors/[controller]")]
-public class SummuryController : ControllerBase
+public class SummuryController(IMediator mediator) : ControllerBase
 {  
     [HttpGet]
-    public IActionResult Get()
+    public async Task<ActionResult> Get(DateTime start, DateTime end)
     {
-        return Ok("Get work");
+        var result = await mediator.Send(new GetSummuryQuery(start.ToUniversalTime(),end.ToUniversalTime()));
+        return Ok(result);
     }
 
 }

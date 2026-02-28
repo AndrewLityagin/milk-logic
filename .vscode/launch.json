@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug WebApi",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/server/WebApi/WebApi.csproj",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+     {
+      "name": "Run OpcEmulator",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/server/OpcEmulator/OpcEmulator.csproj",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  ]
+}

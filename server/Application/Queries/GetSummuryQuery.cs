@@ -2,8 +2,8 @@
 
 namespace Application;
 
-public class GetSensorsDataQuery(DateTimeOffset start, DateTimeOffset end): IRequest<List<SensorDataDto>>
+public class GetSummuryQuery(DateTime start, DateTime end): IRequest<SummuryDto>
 {
-    public DateTimeOffset Start { get; set; } = start;
-    public DateTimeOffset End { get; set; } = end;
+    public DateTime Start { get; set; } = start;
+    public DateTime End { get; set; } = end;
 }

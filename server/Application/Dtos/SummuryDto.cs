@@ -2,9 +2,9 @@ namespace Application;
 
 public class SummuryDto
 {
-    public DateTimeOffset Start {get; set; }
-    public DateTimeOffset Start {get; set; }
-    public int Min {get; set; }
+    public DateTime Start {get; set; }
+    public DateTime End {get; set; }
+    public float Min {get; set; }
     public float Avg {get; set; }
-    public int Max {get; set; }
+    public float Max {get; set; }
 }

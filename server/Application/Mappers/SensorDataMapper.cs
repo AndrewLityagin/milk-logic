@@ -1,3 +1,4 @@
+using Domain;
 namespace Application;
 
 public static class SensorDataMapper
@@ -6,19 +7,21 @@ public static class SensorDataMapper
     {
         return new SensorDataDto
         {
+            Id = entity.Id,
             SensorId = entity.SensorId,
             Timestamp = entity.Timestamp,
             Value = entity.Value
         };
     }
 
-    public static SensorDataDto ToDto(this SensorData entity)
+    public static SensorData FromDto(this SensorDataDto dto)
     {
-        return new SensorDataDto
+        return new SensorData
         {
-            SensorId = entity.SensorId,
-            Timestamp = entity.Timestamp,
-            Value = entity.Value
+            Id = dto.Id,
+            SensorId = dto.SensorId,
+            Timestamp = dto.Timestamp,
+            Value = dto.Value
         };
     }
 }

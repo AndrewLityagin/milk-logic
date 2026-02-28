@@ -4,7 +4,7 @@ public interface ISensorDataRepository
 {
     IQueryable<SensorData> Entities { get; }
     Task<SensorData> CreateAsync(SensorData sensorData);
-    Task<IEnumerable<SensorData>> GetAsync(IQueryable<SensorData> query);  
-    Task<SensorData> UpdateAsync(SensorData sensorData);    
-    Task DeleteAsync(int sensorDataId);  
+    Task<List<SensorData>> GetListAsync(IQueryable<SensorData> query);  
+    Task UpdateAsync(SensorData sensorData);    
+    bool Delete(int sensorDataId);  
 }
