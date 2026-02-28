@@ -10,9 +10,9 @@ namespace WebApi;
 public class DataController(IMediator mediator) : ControllerBase
 {  
     [HttpGet]
-    public async Task<ActionResult> Get(DateTime start, DateTime end)
+    public async Task<ActionResult> Get(int sensorId, DateTime start, DateTime end)
     {
-        var result = await mediator.Send(new GetSensorDataListQuery(start.ToUniversalTime(),end.ToUniversalTime()));
+        var result = await mediator.Send(new GetSensorDataListQuery(sensorId, start.ToUniversalTime(), end.ToUniversalTime()));
         return Ok(result);
     }
 
@@ -29,5 +29,4 @@ public class DataController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new CreateSensorDataCommand(dto));
         return Ok(result);
     }
-
 }

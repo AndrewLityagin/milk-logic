@@ -8,12 +8,14 @@ internal class GetSummuryQueryHandler(ISensorDataRepository sensorRepository) : 
     public async Task<SummuryDto> Handle(GetSummuryQuery request, CancellationToken cancellationToken)
     {
         var query = sensorRepository.Entities;
-        query = query.Where(sd => sd.Timestamp >= request.Start && sd.Timestamp <= request.End);
+        query = query.Where(sd => sd.SensorId == request.SensorId)
+                     .Where(sd => sd.Timestamp >= request.Start && sd.Timestamp <= request.End);
 
         var entities = await sensorRepository.GetListAsync(query);
         
         return new SummuryDto
         {
+            SensorId = request.SensorId,
             Start = request.Start,
             End = request.End,
             Max = entities.Max(sd => sd.Value),

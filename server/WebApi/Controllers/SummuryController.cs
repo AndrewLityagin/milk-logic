@@ -10,10 +10,9 @@ namespace WebApi;
 public class SummuryController(IMediator mediator) : ControllerBase
 {  
     [HttpGet]
-    public async Task<ActionResult> Get(DateTime start, DateTime end)
+    public async Task<ActionResult> Get(int sensorId, DateTime start, DateTime end)
     {
-        var result = await mediator.Send(new GetSummuryQuery(start.ToUniversalTime(),end.ToUniversalTime()));
+        var result = await mediator.Send(new GetSummuryQuery(sensorId, start.ToUniversalTime(), end.ToUniversalTime()));
         return Ok(result);
     }
-
 }
