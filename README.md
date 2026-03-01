@@ -58,7 +58,8 @@ Milk Logic
 
     4.  SPA:
         Файл конфигурации: client/SPA/vite.config.js
-        Переменные:   target: 'http://localhost:5034',
+        Переменные:   target: 'http://localhost:5034'
+        Для работы требуется Node.js (допускается последняя версия)
         Запуск:
             cd client/SPA
             npm install
