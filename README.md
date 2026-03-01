@@ -38,6 +38,7 @@ Milk Logic
 
     1.  PostgreSQL (через Docker):
         docker run -d –name milk_logic_db -e POSTGRES_DB=milk_logic_db -e POSTGRES_USER=ml_root -e POSTGRES_PASSWORD=password -p 3232:5432 postgres:13.3
+        Без Docker : установить PostgerSQL, создать пользователя : ml_root  создать новую БД milk_logic_db  и выполнить sql скрипт init_db.sql.
 
     2.  WebApi:
         Файл конфигурации: server/WebApi/appsettings.json
@@ -60,7 +61,8 @@ Milk Logic
         Переменные:   target: 'http://localhost:5034',
         Запуск:
             cd client/SPA
-            npm run build
+            npm install
+            npm run dev
         
 Docker запуск:
     
