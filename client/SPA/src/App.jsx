@@ -64,25 +64,25 @@ function App()
           setConnectionState("ONLINE");
         }
         catch (err) {
-          console.error("Connection error:" +err);
-          setConnectionState(prev => prev === "ONLINE" ? "RECONNECTING" : "OFFLINE");
+          console.error("Connection error:" + err);
+
+          setConnectionState(prev => {
+            if (prev === "ONLINE") return "RECONNECTING";
+            if (prev === "RECONNECTING") return "OFFLINE";
+            return "OFFLINE";
+          });
         }
     };
 
-  useEffect(() => { 
+  useEffect(() => {
     if (regime !== "live") return;
-    load();
-    const interval = regime === "live"
-    ? setInterval(load, 5000)
-    : null;
-
-    return () => {
-      clearInterval(interval);
-    }; 
+    load(); 
+    const interval = setInterval(load, 5000);
+    return () => clearInterval(interval);
   }, [regime, startPeriod, endPeriod]);
 
   return (
-    <div className="container">
+      <div className="container">
       <div className="header__buttons">
         <div className="regime-filter">
             <Regime value={regime} onChange={setRegime}/> 
@@ -108,12 +108,12 @@ function App()
             <tr key={sensor.sensorId}>
               <AnimatedCell value = {sensor.sensorId} innerComponent={null}/>
               <AnimatedCell value = {sensor.lastValue} innerComponent={null}/>
-              <td><SparkLine values = {sensor.sensorTrend}/></td>
+              <td><SparkLine values = {sensor.sensorTrend} timestamp={sensor.timestamp}/></td>
               <AnimatedCell value ={sensor.min} innerComponent={null} />
               <AnimatedCell value = {sensor.max} innerComponent={null}/>
               <AnimatedCell value = {sensor.avg} innerComponent={null}/>
               <AnimatedCell value = {GetValueStatus(sensor.lastValue)}>
-                <Status status = {GetValueStatus(sensor.lastValue)}/>
+                <Status status = {GetValueStatus(sensor.lastValue)} sensorTrend = {sensor.sensorTrend} timestamp={sensor.timestamp}/>
               </AnimatedCell>
               <AnimatedCell value = {new Date(sensor.timestamp).toLocaleTimeString("ru-RU")}/>
             </tr>
@@ -139,6 +139,22 @@ function App()
           <span className="upload-error">{uploadError}</span>
         )}
       </div>
+      <div className="page-legend">
+          <strong>Легенда:</strong>
+          <ul>
+            <li><b>Sensor</b> — идентификатор датчика.</li>
+            <li><b>Последнее значение</b> — последнее полученное значение датчика.</li>
+            <li><b>Тренд (последние 60 секунд)</b> — изменения значения датчика за последние 60 секунд.</li>
+            <li><b>Min</b> — минимальное значение за выбранный период.</li>
+            <li><b>Max</b> — максимальное значение за выбранный период.</li>
+            <li><b>Avg</b> — среднее значение за выбранный период.</li>
+            <li><b>Статус</b> — состояние датчика: OK (0–70), WARNING (70–90), ERROR (≥90).</li>
+            <li><b>Обновленно</b> — время последнего обновления данных.</li>
+            <li><b>Live</b> — режим автоматического обновления данных каждые 5 секунд.</li>
+            <li><b>Historical</b> — просмотр данных за выбранный период.</li>
+            <li><b>Выбрать XML</b> — загрузка данных датчиков из XML файла.</li>
+          </ul>
+      </div>
     </div>
   );
 }
@@ -151,6 +167,14 @@ export function GetValueStatus(value){
   if(value >= 70 && value < 90)
     return "WARNING"
   return "ERROR";
+}
+
+function fetchWithTimeout(url, timeout = 2000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  return fetch(url, { signal: controller.signal })
+    .finally(() => clearTimeout(id));
 }
 
 export async function FetchSensorsData(sensorId, periodStart, periodEnd) 
@@ -174,14 +198,14 @@ export async function FetchSensorsData(sensorId, periodStart, periodEnd)
       });
 
     const [sensorData, sensorTrend, sensorSummury] = await Promise.all([
-      fetch(`/api/data?${params5sec}`),
-      fetch(`/api/data?${params60sec}`),
-      fetch(`/api/sensors/summury?${paramsSummury}`)
+      fetchWithTimeout(`/api/data?${params5sec}`),
+      fetchWithTimeout(`/api/data?${params60sec}`),
+      fetchWithTimeout(`/api/sensors/summury?${paramsSummury}`)
     ]);
 
-  /* if (!sensorData.ok || !sensorSummury.ok || !sensorTrend.ok) {
+   if (!sensorData.ok || !sensorSummury.ok || !sensorTrend.ok) {
       throw new Error("API error");
-    }*/
+    }
 
     const sensors = await sensorData.json();
     const summury = await sensorSummury.json();

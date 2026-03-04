@@ -8,19 +8,21 @@ function DateRangePicker({ regime, startPeriod, endPeriod, setStartDate, setEndD
           <span>От: </span>
           <DatePicker
             showTimeSelect
+            timeIntervals={1}
             selected={startPeriod}
             maxDate={endPeriod}
             onChange={(date) => setStartDate(date)}
-            dateFormat="dd.MM.yyyy HH:MM:ss"
+            dateFormat="dd.MM.yyyy HH:mm:ss"
             className="date-picker-input"
             disabled={regime=="live"}/>
           <span>До: </span>
           <DatePicker
             showTimeSelect
+            timeIntervals={1}
             minDate={startPeriod}
             selected={endPeriod}
             onChange={(date) => setEndDate(date)}
-            dateFormat="dd.MM.yyyy HH:MM:ss"
+            dateFormat="dd.MM.yyyy HH:mm:ss"
             className="date-picker-input"
             disabled={regime=="live"}/>
           <button className="show-button" onClick={load}  disabled={regime=="live"}>

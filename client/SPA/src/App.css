@@ -30,7 +30,7 @@
 }
 
 .sensor-table tr:hover {
-  background-color: #333;
+  background-color: #1e1e1e;
 }
 
 .regime-filter{
@@ -84,4 +84,28 @@
 .upload-error {
   color: #ff5c5c;
   font-size: 14px;
+}
+
+.page-legend {
+  margin-top: 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #cfd6e4;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid #2f3642;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  text-align: start;
+  width: fit-content;
+}
+
+.page-legend strong {
+  color: #ffffff;
+  margin-right: 6px;
+}
+
+.page-legend span {
+  color: #aeb6c5;
+  margin-right: 6px;
 }

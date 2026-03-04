@@ -67,7 +67,7 @@ Milk Logic
         
 Docker запуск:
     
-    docker compose up -–build
+    docker compose up --build
 
 Структура docker контейнера:
    
